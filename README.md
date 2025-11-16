@@ -1,4 +1,4 @@
-# 🔍 BrowserConsoleAnalysis
+# 🔍 Browser Console Analysis
 
 > A lightweight utility for capturing, analyzing, and reporting browser console messages using Playwright MCP Server and GitHubCopilot
 
