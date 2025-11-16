@@ -76,7 +76,7 @@ npx playwright install
 
 ### 🎯 Step-by-Step Implementation
 
-This project uses **Playwright MCP Server** with **GitHub Copilot** in agent mode for intelligent browser console analysis.
+This project uses **Playwright MCP Server** with **GitHub Copilot** in agent mode for intelligent browser console analysis and network monitoring.
 
 #### Step 1: Start Playwright MCP Server
 
@@ -94,24 +94,46 @@ playwright-mcp-server start
 2. Activate GitHub Copilot
 3. Switch to **Agent Mode** (use `@` command in Copilot chat)
 
-#### Step 3: Issue the Analysis Prompt
+#### Step 3: Issue Analysis Prompts
 
-In GitHub Copilot chat, enter the following prompt:
+##### 🔍 Example 1: Console Error Analysis
+
+In GitHub Copilot chat, enter:
 
 ```
 Use playwright MCP Server. Perform analysis of error messages found on console for webpage: https://www.flipkart.com and save the results in markdown file under reports.
 ```
 
+##### 🌐 Example 2: Network Requests Analysis
+
+For comprehensive network monitoring:
+
+```
+Use playwright MCP Server. Run all network requests for website https://www.agoda.com since loading the webpage. Provide full raw list of network requests by breaking them down by type and size. Advise resolutions on possible causes and fixes. Write in a markdown file and attach under reports folder.
+```
+
 #### Step 4: Automatic Execution
 
-Once you issue the command:
+Once you issue the command, the automation process begins:
 
+**For Console Analysis:**
 1. 🌐 **Playwright MCP** opens the browser automatically
 2. 🔍 **Navigates** to the target URL (e.g., https://www.flipkart.com)
 3. 👂 **Listens** to console messages and page errors
 4. ⏳ **Waits** for dynamic content to load
 5. 📊 **Analyzes** captured errors and warnings
 6. 💾 **Saves** results as markdown in `reports/` folder
+
+**For Network Analysis:**
+1. 🌐 **Opens browser** and navigates to target URL (e.g., https://www.agoda.com)
+2. 📡 **Captures all network requests** during page load
+3. 📊 **Breaks down requests** by:
+   - Resource type (img, script, css, xhr, fetch, etc.)
+   - Transfer size and byte count
+4. 📈 **Generates statistics** (total requests, largest resources)
+5. 🔍 **Analyzes performance** and identifies issues
+6. 💡 **Provides recommendations** for optimization
+7. 💾 **Saves detailed report** as markdown with full resource timing JSON
 
 The entire process is automated through the Playwright MCP server and GitHub Copilot's agent capabilities.
 
@@ -181,7 +203,9 @@ BrowserConsoleAnalysis/
 ├── 📄 package-lock.json
 ├── 📂 reports/
 │   ├── flipkart_console_report.md
-│   └── amazon_console_report.md
+│   ├── amazon_console_report.md
+│   ├── agoda_network_requests_report.md
+│   └── agoda_resource_timing.json
 └── 📂 node_modules/
     └── (dependencies)
 ```
@@ -237,30 +261,12 @@ const timeout = parseInt(process.argv[3]) || 6000;
 
 Example reports are included in this repository:
 
-| Website | Report |
-|---------|--------|
-| Flipkart | [`reports/flipkart_console_report.md`](reports/flipkart_console_report.md) |
-| Amazon | [`reports/amazon_console_report.md`](reports/amazon_console_report.md) |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. 🍴 Fork the repository
-2. 🌿 Create a feature branch
-3. 💬 Submit a pull request
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. 🍴 Fork the repository
-2. 🌿 Create a feature branch
-3. 💬 Submit a pull request
+| Website | Type | Report |
+|---------|------|--------|
+| Flipkart | Console Errors | [`reports/flipkart_console_report.md`](reports/flipkart_console_report.md) |
+| Amazon | Console Errors | [`reports/amazon_console_report.md`](reports/amazon_console_report.md) |
+| Agoda | Network Analysis | [`reports/agoda_network_requests_report.md`](reports/agoda_network_requests_report.md) |
+| Agoda | Resource Timing | [`reports/agoda_resource_timing.json`](reports/agoda_resource_timing.json) |
 
 ---
 
@@ -284,7 +290,6 @@ Contributions are welcome! Feel free to:
 ## 📄 License
 
 MIT License - feel free to use this project for any purpose!
-
 ---
 
 <div align="center">
